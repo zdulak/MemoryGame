@@ -27,7 +27,7 @@ body {
     background-color:#F7C11A;
 }
 
-.game-score {
+p, .game-score {
     text-align:center;
 }
 
