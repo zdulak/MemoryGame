@@ -29,6 +29,7 @@ class Board {
         return 4;
     }
     constructor() {
+        /** @type {string[][]} */
         this.cards = [];
         for (let i = 0; i < Board.columnSize; ++i) {
             const row = [];
