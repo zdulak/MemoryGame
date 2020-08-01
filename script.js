@@ -61,6 +61,9 @@ class Board {
 }
 
 class Game { 
+    /**
+     * @param {Board} board
+     */
     constructor(board) {
         /** @type {Card[]} */
         this.checkedCards = [];
@@ -93,6 +96,10 @@ class View {
     isBoardEmpty() {
         return !this.#divBoard.hasChildNodes();
     }
+    /**
+     * @param {Card[]} cards
+     * @param {boolean} front
+     */
     updateCards(cards, front) {
         for (const {i, j, cardType} of cards) {
             const cardTag = document.querySelector(`.game-card[data-row="${i}"][data-col="${j}"]`);
@@ -106,6 +113,9 @@ class View {
             }
         }
     }
+    /**
+     * @param {Card[]} cards
+     */
     deleteCards(cards) {
         for (const {i, j} of cards) {
             const cardTag = document.querySelector(`.game-card[data-row="${i}"][data-col="${j}"]`);
@@ -139,6 +149,8 @@ class Controller {
         this.game.board.shuffle();
         this.view.createBoardView();
     }
+
+
     cardClick = (event) => {
         if (event.target.classList.contains("game-card") && !this.blockCards) {
             const i = event.target.dataset.row;
@@ -148,8 +160,7 @@ class Controller {
                 const card = new Card(i, j, this.game.board.cards[i][j]);
                 this.game.checkedCards.push(card);
                 this.view.updateCards([card], true);
-                this.game.counter++;
-                this.view.updateCounter(this.game.counter);
+                this.view.updateCounter(++this.game.counter);
                 if (this.game.checkedCards.length === 2) {
                     this.blockCards = true;
                     setTimeout(() => {
